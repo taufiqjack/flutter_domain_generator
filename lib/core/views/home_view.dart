@@ -20,63 +20,116 @@ class _HomeViewState extends State<HomeView> {
         await data.getDomain(domainSearch.text, context);
       },
       builder: (context, data, child) => Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.fromLTRB(20, 50, 20, 0),
-          child: Column(children: [
-            TextFormField(
-              decoration: InputDecoration(
-                  hintText: 'Cari Domain',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  suffixIcon: InkWell(
-                    child: const Icon(
-                      Icons.cancel,
-                      color: Colors.black54,
+        body: data.domain == null
+            ? SingleChildScrollView(
+                physics: const NeverScrollableScrollPhysics(),
+                child: Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 50, 20, 30),
+                    child: Column(children: [
+                      TextFormField(
+                        decoration: InputDecoration(
+                            hintText: 'Cari Domain',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            suffixIcon: InkWell(
+                              child: const Icon(
+                                Icons.cancel,
+                                color: Colors.black54,
+                              ),
+                              onTap: () {
+                                domainSearch.clear();
+                              },
+                            )),
+                        controller: domainSearch,
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            color: Colors.green.shade600),
+                        height: 50,
+                        width: 100,
+                        child: TextButton(
+                            onPressed: () async {
+                              data.getDomain(domainSearch.text, context);
+                            },
+                            child: const Center(
+                              child: Text(
+                                'cari',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            )),
+                      ),
+                    ])))
+            : SingleChildScrollView(
+                physics: const NeverScrollableScrollPhysics(),
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 50, 20, 30),
+                  child: Column(children: [
+                    TextFormField(
+                      decoration: InputDecoration(
+                          hintText: 'Cari Domain',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          suffixIcon: InkWell(
+                            child: const Icon(
+                              Icons.cancel,
+                              color: Colors.black54,
+                            ),
+                            onTap: () {
+                              domainSearch.clear();
+                            },
+                          )),
+                      controller: domainSearch,
                     ),
-                    onTap: () {
-                      domainSearch.clear();
-                    },
-                  )),
-              controller: domainSearch,
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  color: Colors.green.shade600),
-              height: 50,
-              width: 100,
-              child: TextButton(
-                  onPressed: () async {
-                    data.getDomain(domainSearch.text, context);
-                  },
-                  child: const Center(
-                    child: Text(
-                      'cari',
-                      style: TextStyle(color: Colors.white),
+                    const SizedBox(
+                      height: 10,
                     ),
-                  )),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            domainSearch.text.isEmpty
-                ? const CircularProgressIndicator()
-                : ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: data.domain!.result!.length,
-                    itemBuilder: (BuildContext context, i) {
-                      var domainList = data.domain!.result![i];
-                      return ListTile(
-                        title: Text('${domainList.name}'),
-                        subtitle: Text('${domainList.availability}'),
-                      );
-                    })
-          ]),
-        ),
+                    Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: Colors.green.shade600),
+                      height: 50,
+                      width: 100,
+                      child: TextButton(
+                          onPressed: () async {
+                            data.getDomain(domainSearch.text, context);
+                          },
+                          child: const Center(
+                            child: Text(
+                              'cari',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          )),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    domainSearch.text.isEmpty
+                        ? const CircularProgressIndicator()
+                        : SingleChildScrollView(
+                            child: SizedBox(
+                              height: MediaQuery.of(context).size.height / 1.3,
+                              child: ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: data.domain!.result!.length,
+                                  itemBuilder: (BuildContext context, i) {
+                                    var domainList = data.domain!.result![i];
+                                    return ListTile(
+                                      title: Text('${domainList.name}'),
+                                      subtitle:
+                                          Text('${domainList.availability}'),
+                                    );
+                                  }),
+                            ),
+                          ),
+                  ]),
+                ),
+              ),
       ),
     );
   }
