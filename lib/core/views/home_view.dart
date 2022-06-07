@@ -1,4 +1,5 @@
 import 'package:domaingen/core/viewmodels/domain_result_viewmodel.dart';
+import 'package:domaingen/core/views/barcode_view.dart';
 import 'package:domaingen/core/views/base_view.dart';
 import 'package:flutter/material.dart';
 
@@ -119,10 +120,23 @@ class _HomeViewState extends State<HomeView> {
                                   itemCount: data.domain!.result!.length,
                                   itemBuilder: (BuildContext context, i) {
                                     var domainList = data.domain!.result![i];
-                                    return ListTile(
-                                      title: Text('${domainList.name}'),
-                                      subtitle:
-                                          Text('${domainList.availability}'),
+                                    return InkWell(
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => BarcodeView(
+                                                valueBarcode: domainList.name,
+                                              ),
+                                            ));
+                                      },
+                                      child: Card(
+                                        child: ListTile(
+                                          title: Text('${domainList.name}'),
+                                          subtitle: Text(
+                                              '${domainList.availability}'),
+                                        ),
+                                      ),
                                     );
                                   }),
                             ),
