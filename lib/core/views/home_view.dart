@@ -15,13 +15,12 @@ class _HomeViewState extends State<HomeView> {
   String domain = '';
   bool isAsync = false;
   TextEditingController domainSearch = TextEditingController();
+  final GlobalKey<FormState> _key = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
     return BaseView<DomainResultViewmodel>(
-      onModelReady: (data) async {
-        await data.getDomain(domainSearch.text, context);
-      },
+      onModelReady: (data) async {},
       builder: (context, data, child) => AnimationLoadProgress(
         inAsyncCall: isAsync,
         height: 50,
@@ -35,6 +34,7 @@ class _HomeViewState extends State<HomeView> {
                       padding: const EdgeInsets.fromLTRB(20, 50, 20, 30),
                       child: Column(children: [
                         TextFormField(
+                          key: _key,
                           decoration: InputDecoration(
                               hintText: 'Cari Domain',
                               border: OutlineInputBorder(
@@ -62,7 +62,14 @@ class _HomeViewState extends State<HomeView> {
                           width: 100,
                           child: TextButton(
                               onPressed: () async {
-                                data.getDomain(domainSearch.text, context);
+                                setState(() {
+                                  isAsync = true;
+                                  Future.delayed(
+                                      const Duration(milliseconds: 1500), () {
+                                    data.getDomain(domainSearch.text, context);
+                                    isAsync = false;
+                                  });
+                                });
                               },
                               child: const Center(
                                 child: Text(
@@ -107,7 +114,8 @@ class _HomeViewState extends State<HomeView> {
                             onPressed: () {
                               setState(() {
                                 isAsync = true;
-                                Future.delayed(const Duration(seconds: 1), () {
+                                Future.delayed(
+                                    const Duration(milliseconds: 1500), () {
                                   data.getDomain(domainSearch.text, context);
                                   isAsync = false;
                                 });
@@ -124,7 +132,9 @@ class _HomeViewState extends State<HomeView> {
                         height: 20,
                       ),
                       domainSearch.text.isEmpty
-                          ? const CircularProgressIndicator()
+                          ? const Center(
+                              child: Text('Loading...'),
+                            )
                           : SingleChildScrollView(
                               child: SizedBox(
                                 height:

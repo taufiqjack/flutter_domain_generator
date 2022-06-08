@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_barcodes/barcodes.dart';
 
@@ -17,9 +15,9 @@ class _BarcodeViewState extends State<BarcodeView> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text(
-          'Barcode',
-          style: TextStyle(color: Colors.black),
+        title: Text(
+          'Barcode for ${widget.valueBarcode}',
+          style: const TextStyle(color: Colors.black),
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,

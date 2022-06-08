@@ -3,7 +3,6 @@ import 'package:domaingen/core/constans/api.dart';
 import 'package:domaingen/core/models/domain_result_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class DomainResultRepo extends ChangeNotifier {
   Dio dio = Dio();
@@ -21,7 +20,8 @@ class DomainResultRepo extends ChangeNotifier {
       }
       return data;
     } catch (e) {
-      Fluttertoast.showToast(msg: 'Error');
+      // Fluttertoast.showToast(msg: 'Error');
     }
+    return null;
   }
 }
