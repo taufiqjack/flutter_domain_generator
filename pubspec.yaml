@@ -39,6 +39,7 @@ dependencies:
   shared_preferences: ^2.0.15
   fluttertoast: ^8.0.9
   syncfusion_flutter_barcodes: ^20.1.58
+  animation_load_progress: ^0.0.3
 
 dev_dependencies:
   flutter_test:
