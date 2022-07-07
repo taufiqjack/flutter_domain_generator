@@ -3,6 +3,7 @@ import 'package:domaingen/core/viewmodels/domain_result_viewmodel.dart';
 import 'package:domaingen/core/views/barcode_view.dart';
 import 'package:domaingen/core/views/base_view.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -31,14 +32,22 @@ class _HomeViewState extends State<HomeView> {
               ? SingleChildScrollView(
                   physics: const NeverScrollableScrollPhysics(),
                   child: Padding(
-                      padding: const EdgeInsets.fromLTRB(20, 50, 20, 30),
+                      padding: const EdgeInsets.fromLTRB(20, 20, 20, 30),
                       child: Column(children: [
+                        Image.asset(
+                          'assets/images/domainku.png',
+                          height: MediaQuery.of(context).size.height / 5,
+                          width: MediaQuery.of(context).size.height / 5,
+                        ),
                         TextFormField(
                           key: _key,
                           decoration: InputDecoration(
-                              hintText: 'Cari Domain',
+                              hintText: 'ketik nama domain',
+                              hintStyle: TextStyle(
+                                  color: Colors.grey.shade400,
+                                  fontStyle: FontStyle.italic),
                               border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8),
+                                borderRadius: BorderRadius.circular(50),
                               ),
                               suffixIcon: InkWell(
                                 child: const Icon(
@@ -82,13 +91,21 @@ class _HomeViewState extends State<HomeView> {
               : SingleChildScrollView(
                   physics: const NeverScrollableScrollPhysics(),
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 50, 20, 30),
+                    padding: const EdgeInsets.fromLTRB(20, 20, 20, 30),
                     child: Column(children: [
+                      Image.asset(
+                        'assets/images/domainku.png',
+                        height: MediaQuery.of(context).size.height / 5,
+                        width: MediaQuery.of(context).size.height / 5,
+                      ),
                       TextFormField(
                         decoration: InputDecoration(
-                            hintText: 'Cari Domain',
+                            hintText: 'ketik nama domain',
+                            hintStyle: TextStyle(
+                                color: Colors.grey.shade500,
+                                fontStyle: FontStyle.italic),
                             border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(50),
                             ),
                             suffixIcon: InkWell(
                               child: const Icon(
@@ -138,7 +155,7 @@ class _HomeViewState extends State<HomeView> {
                           : SingleChildScrollView(
                               child: SizedBox(
                                 height:
-                                    MediaQuery.of(context).size.height / 1.3,
+                                    MediaQuery.of(context).size.height / 1.95,
                                 child: ListView.builder(
                                     shrinkWrap: true,
                                     itemCount: data.domain!.result!.length,
@@ -146,16 +163,28 @@ class _HomeViewState extends State<HomeView> {
                                       var domainList = data.domain!.result![i];
                                       return InkWell(
                                         onTap: () {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    BarcodeView(
-                                                  valueBarcode: domainList.name,
-                                                ),
-                                              ));
+                                          domainList.availability ==
+                                                  'registered'
+                                              ? Fluttertoast.showToast(
+                                                  msg:
+                                                      'Domain telah terdaftar!')
+                                              : Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        BarcodeView(
+                                                      valueBarcode:
+                                                          domainList.name,
+                                                    ),
+                                                  ));
                                         },
                                         child: Card(
+                                          color: domainList.availability ==
+                                                  'registered'
+                                              ? Colors.grey.shade300
+                                              : Colors.white,
+                                          margin: const EdgeInsets.only(
+                                              bottom: 10, left: 0, right: 0),
                                           child: ListTile(
                                             title: Text('${domainList.name}'),
                                             subtitle: Text(
@@ -169,6 +198,35 @@ class _HomeViewState extends State<HomeView> {
                     ]),
                   ),
                 ),
+          bottomNavigationBar: Container(
+            height: 75,
+            width: double.infinity,
+            color: const Color(0xff27313f),
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 5, top: 5),
+              child: SingleChildScrollView(
+                physics: const NeverScrollableScrollPhysics(),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Image.asset(
+                      'assets/images/jetorbit_logo.png',
+                      color: Colors.white,
+                      height: 30,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    const Text(
+                      'Cari Domain Murah dan Cepat\nMenyediakan 94 domain keren untuk kamu temukan',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.white, fontSize: 12),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ),
         ),
       ),
     );
