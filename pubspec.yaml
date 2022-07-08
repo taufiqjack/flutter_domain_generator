@@ -40,6 +40,7 @@ dependencies:
   fluttertoast: ^8.0.9
   syncfusion_flutter_barcodes: ^20.1.58
   animation_load_progress: ^0.0.3
+  top_snackbar_flutter: ^2.1.1
 
 dev_dependencies:
   flutter_test:

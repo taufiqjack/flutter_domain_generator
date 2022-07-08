@@ -3,6 +3,8 @@ import 'package:domaingen/core/viewmodels/domain_result_viewmodel.dart';
 import 'package:domaingen/core/views/barcode_view.dart';
 import 'package:domaingen/core/views/base_view.dart';
 import 'package:flutter/material.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -180,10 +182,7 @@ class _HomeViewState extends State<HomeView> {
                                         onTap: () {
                                           domainList.availability ==
                                                   'registered'
-                                              ? ScaffoldMessenger.of(context)
-                                                  .showSnackBar(const SnackBar(
-                                                      content: Text(
-                                                          'domain telah terdaftar')))
+                                              ? snackbar()
                                               : Navigator.push(
                                                   context,
                                                   MaterialPageRoute(
@@ -202,7 +201,8 @@ class _HomeViewState extends State<HomeView> {
                                           margin: const EdgeInsets.only(
                                               bottom: 10, left: 0, right: 0),
                                           child: ListTile(
-                                            title: Text('${domainList.name}'),
+                                            title: Text('${domainList.name}'
+                                                .toLowerCase()),
                                             subtitle: Text(
                                                 '${domainList.availability}'),
                                           ),
@@ -246,5 +246,14 @@ class _HomeViewState extends State<HomeView> {
         ),
       ),
     );
+  }
+
+  void snackbar() {
+    showTopSnackBar(
+        context,
+        CustomSnackBar.info(
+          message: 'Maaf, domain telah terdaftar',
+          messagePadding: EdgeInsets.all(5),
+        ));
   }
 }

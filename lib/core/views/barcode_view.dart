@@ -16,7 +16,7 @@ class _BarcodeViewState extends State<BarcodeView> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(
-          'Barcode for ${widget.valueBarcode}',
+          'Barcode for ${widget.valueBarcode}'.toLowerCase(),
           style: const TextStyle(color: Colors.black),
         ),
         backgroundColor: Colors.transparent,
