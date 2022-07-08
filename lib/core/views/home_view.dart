@@ -1,4 +1,5 @@
 import 'package:animation_load_progress/animation_load_progress.dart';
+import 'package:domaingen/core/constans/custom_colors.dart';
 import 'package:domaingen/core/viewmodels/domain_result_viewmodel.dart';
 import 'package:domaingen/core/views/barcode_view.dart';
 import 'package:domaingen/core/views/base_view.dart';
@@ -29,6 +30,7 @@ class _HomeViewState extends State<HomeView> {
         width: 50,
         colorList: [Colors.yellow.shade700],
         child: Scaffold(
+          backgroundColor: white,
           body: data.domain == null
               ? SingleChildScrollView(
                   physics: const NeverScrollableScrollPhysics(),
@@ -172,41 +174,168 @@ class _HomeViewState extends State<HomeView> {
                           : SingleChildScrollView(
                               child: SizedBox(
                                 height:
-                                    MediaQuery.of(context).size.height / 1.95,
+                                    MediaQuery.of(context).size.height / 1.73,
                                 child: ListView.builder(
                                     shrinkWrap: true,
                                     itemCount: data.domain!.result!.length,
                                     itemBuilder: (BuildContext context, i) {
                                       var domainList = data.domain!.result![i];
                                       return InkWell(
-                                        onTap: () {
-                                          domainList.availability ==
-                                                  'registered'
-                                              ? snackbar()
-                                              : Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        BarcodeView(
-                                                      valueBarcode:
-                                                          domainList.name,
+                                        onTap: () {},
+                                        child: domainList.availability ==
+                                                'registered'
+                                            ? Padding(
+                                                padding: const EdgeInsets.only(
+                                                    bottom: 12),
+                                                child: Container(
+                                                  height: 43,
+                                                  decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              5),
+                                                      border: Border.all(
+                                                          color:
+                                                              lightGreyThree),
+                                                      color: lightGreyFour),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceAround,
+                                                    children: [
+                                                      Text(
+                                                        '${domainList.name}'
+                                                            .toLowerCase(),
+                                                        style: const TextStyle(
+                                                            color: blackTwo),
+                                                      ),
+                                                      Container(
+                                                        height: 30,
+                                                        decoration: BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        3),
+                                                            color: greyOne),
+                                                        child: TextButton(
+                                                            onPressed: () {},
+                                                            child: const Center(
+                                                              child: Text(
+                                                                'Whois',
+                                                                style: TextStyle(
+                                                                    color:
+                                                                        white),
+                                                              ),
+                                                            )),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              )
+                                            : Card(
+                                                elevation: 0,
+                                                color:
+                                                    domainList.availability ==
+                                                            'registered'
+                                                        ? Colors.grey.shade300
+                                                        : Colors.white,
+                                                margin: const EdgeInsets.only(
+                                                    bottom: 12,
+                                                    left: 0,
+                                                    right: 0),
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(5),
+                                                  side: const BorderSide(
+                                                      color: lightGrey),
+                                                ),
+                                                child: Column(
+                                                  children: [
+                                                    SizedBox(
+                                                      height: 43,
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceAround,
+                                                        children: [
+                                                          Text('${domainList.name}'
+                                                              .toLowerCase()),
+                                                          Text(
+                                                            '${domainList.availability}',
+                                                            style: const TextStyle(
+                                                                color:
+                                                                    darkGreen),
+                                                          ),
+                                                        ],
+                                                      ),
                                                     ),
-                                                  ));
-                                        },
-                                        child: Card(
-                                          color: domainList.availability ==
-                                                  'registered'
-                                              ? Colors.grey.shade300
-                                              : Colors.white,
-                                          margin: const EdgeInsets.only(
-                                              bottom: 10, left: 0, right: 0),
-                                          child: ListTile(
-                                            title: Text('${domainList.name}'
-                                                .toLowerCase()),
-                                            subtitle: Text(
-                                                '${domainList.availability}'),
-                                          ),
-                                        ),
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        Flexible(
+                                                          child: Container(
+                                                            height: 43,
+                                                            width:
+                                                                double.infinity,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                                    borderRadius: const BorderRadius
+                                                                            .only(
+                                                                        bottomLeft: Radius.circular(
+                                                                            5)),
+                                                                    border:
+                                                                        Border
+                                                                            .all(
+                                                                      color:
+                                                                          darkGreen,
+                                                                    ),
+                                                                    color:
+                                                                        darkGreen),
+                                                            child: const Center(
+                                                              child: Text(
+                                                                'Beli Domain',
+                                                                style: TextStyle(
+                                                                    color:
+                                                                        white),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        Flexible(
+                                                          child: Container(
+                                                            height: 43,
+                                                            width:
+                                                                double.infinity,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                                    borderRadius:
+                                                                        const BorderRadius
+                                                                            .only(
+                                                                      bottomRight:
+                                                                          Radius.circular(
+                                                                              5),
+                                                                    ),
+                                                                    border: Border.all(
+                                                                        color:
+                                                                            blueTwo),
+                                                                    color:
+                                                                        blueTwo),
+                                                            child: const Center(
+                                                              child: Text(
+                                                                'Beli Paket Hosting',
+                                                                style: TextStyle(
+                                                                    color:
+                                                                        white),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
                                       );
                                     }),
                               ),
@@ -251,7 +380,7 @@ class _HomeViewState extends State<HomeView> {
   void snackbar() {
     showTopSnackBar(
         context,
-        CustomSnackBar.info(
+        const CustomSnackBar.info(
           message: 'Maaf, domain telah terdaftar',
           messagePadding: EdgeInsets.all(5),
         ));

@@ -1,12 +1,18 @@
 import 'package:domaingen/core/views/home_view.dart';
+import 'package:domaingen/core/views/splash_view.dart';
 import 'package:domaingen/locator.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() async {
   setupLocator();
   WidgetsFlutterBinding.ensureInitialized();
 
-  runApp(const MyApp());
+  runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
+    theme: ThemeData(fontFamily: GoogleFonts.nunitoSans().fontFamily),
+    home: const SplashView(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
