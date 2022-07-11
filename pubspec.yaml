@@ -38,11 +38,12 @@ dependencies:
   get_it: ^7.2.0
   shared_preferences: ^2.0.15
   fluttertoast: ^8.0.9
+  toast: ^0.3.0
   syncfusion_flutter_barcodes: ^20.1.58
-  animation_load_progress: ^0.0.3
   top_snackbar_flutter: ^2.1.1
   google_fonts: ^3.0.1
   page_transition: ^2.0.9
+  skeleton_text: ^3.0.0
 
 dev_dependencies:
   flutter_test:
