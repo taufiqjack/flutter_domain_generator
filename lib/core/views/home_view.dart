@@ -2,6 +2,7 @@ import 'package:domaingen/core/constans/custom_colors.dart';
 import 'package:domaingen/core/viewmodels/domain_result_viewmodel.dart';
 import 'package:domaingen/core/views/base_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:skeleton_text/skeleton_text.dart';
 import 'package:toast/toast.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
@@ -376,15 +377,32 @@ class _HomeViewState extends State<HomeView> {
         ));
   }
 
-  DateTime? currentTime;
-  Future<bool> backPress() {
-    DateTime now = DateTime.now();
-    if (currentTime == null ||
-        now.difference(currentTime!) > const Duration(seconds: 2)) {
-      currentTime = now;
-      Toast.show('double tap untuk keluar aplikasi');
-      return Future.value(false);
-    }
-    return Future.value(true);
+  Future<bool> backPress() async {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            content:
+                const Text('Apa anda yakin ingin keluar dari aplikasi ini'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text('Batal'),
+              ),
+              TextButton(
+                onPressed: () {
+                  SystemNavigator.pop();
+                },
+                child: const Text('OK'),
+              )
+            ],
+          );
+        });
+    return false;
   }
 }

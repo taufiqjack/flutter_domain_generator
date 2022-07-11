@@ -3,7 +3,6 @@ import 'package:domaingen/core/models/domain_result_model.dart';
 import 'package:domaingen/core/repositorys/domain_result_repository.dart';
 import 'package:domaingen/locator.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'base_viewmodel.dart';
 
 class DomainResultViewmodel extends BaseViewModel {
